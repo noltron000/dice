@@ -1,0 +1,33 @@
+{
+	"name": "@noltron000/dice",
+	"version": "0.0.0",
+	"description": "dice rolls & stats",
+	"keywords": [
+		"dice",
+		"probability",
+		"rpg"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/noltron000/dice#README.md",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/noltron000/dice.git"
+	},
+	"bugs": {
+		"url": "https://github.com/noltron000/dice/issues",
+		"email": "noltron000@gmail.com"
+	},
+	"author": {
+		"name": "noltron000",
+		"email": "noltron000@gmail.com",
+		"url": "https://noltron000.com/"
+	},
+	"contributors": [],
+	"main": "main.js",
+	"type": "module",
+	"scripts": {
+		"test": "node main.js"
+	},
+	"dependencies": {},
+	"devDependencies": {}
+}
