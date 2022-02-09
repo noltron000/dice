@@ -1,0 +1,33 @@
+{
+	"name": "dicey",
+	"version": "0.0.0",
+	"description": "dice rolls & stats",
+	"keywords": [
+		"dice",
+		"probability",
+		"rpg"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/noltron000/dicey#README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/noltron000/dicey.git"
+	},
+	"bugs": {
+		"url": "https://github.com/noltron000/dicey/issues",
+		"email": "noltron000@gmail.com"
+	},
+	"author": {
+		"name": "noltron000",
+		"email": "noltron000@gmail.com",
+		"url": "https://noltron000.com/"
+	},
+	"contributors": [],
+	"main": "source/library/main.js",
+	"type": "module",
+	"scripts": {
+		"test": "node source/tests/DiceGroup.test.mjs"
+	},
+	"dependencies": {},
+	"devDependencies": {}
+}
