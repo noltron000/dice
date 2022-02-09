@@ -1,3 +1,5 @@
+import cartesianProduct from "fast-cartesian"
+
 export default class FungibleDice {
 	readonly numDice: number
 	readonly numSides: number
@@ -41,5 +43,12 @@ export default class FungibleDice {
 		else var numSides = parseInt(numSidesResult[0][0])
 
 		return [numDice, numSides]
+	}
+
+	generateDiceRolls (): Array<Array<number>> {
+		const singleDieRolls = Array.from(new Array(this.numSides), (_, key) => key + 1)
+		const allSingleDieRolls = new Array(this.numDice).fill(singleDieRolls)
+		const diceRolls = cartesianProduct<Array<Array<number>>>(allSingleDieRolls)
+		return diceRolls
 	}
 }
