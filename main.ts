@@ -1,3 +1,3 @@
-import { parseDiceString } from "./parseDiceString.js";
+import FungibleDice from "./FungibleDice.js";
 
-console.log(parseDiceString('d4'))
+console.log(FungibleDice.parseString('d4'))
