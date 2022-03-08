@@ -7,6 +7,12 @@ interface Frequency {
 export default class Report {
 	readonly denominator: number
 	readonly frequencies: Record<number, Frequency>
+	readonly mean: number
+	readonly minimum: number
+	readonly maximum: number
+	readonly range: number
+	readonly medians: [number] | [number, number]
+	readonly modes: Array<number>
 
 	constructor (diceRolls: Array<Array<number>>) {
 		// The frequency denominator is the population size of this distribution.
@@ -41,6 +47,48 @@ export default class Report {
 			// To keep decumulator frequencies inclusive, subtract this AFTER setting.
 			decumulator -= numerator
 		})
+
+		// Calculate statistical attributes
+		this.mean = this
+		.entries()
+		.map(([result, { numerator }]) => result * numerator)
+		.reduce((total, current) => total + current)
+		/ this.denominator
+
+		this.minimum = Math.min(...this.keys())
+		this.maximum = Math.max(...this.keys())
+		this.range = this.maximum - this.minimum
+
+		// Find the middle one or two values by searching for their index.
+		const lowerMiddleOrdinal = Math.floor((this.denominator + 1) / 2)
+		const lowerMedianIndex = this
+		.values()
+		.findIndex(({ accumulator }) => accumulator >= lowerMiddleOrdinal)
+
+		const upperMiddleOrdinal = Math.ceil((this.denominator + 1) / 2)
+		const upperMedianIndex = this
+		.values()
+		.findIndex(({ accumulator }) => accumulator >= upperMiddleOrdinal)
+
+		const lowerMedian = this.keys()[lowerMedianIndex]
+		const upperMedian = this.keys()[upperMedianIndex]
+		// If there is only one middle value, it is the median.
+		if (lowerMedian === upperMedian) this.medians = [lowerMedian]
+		else this.medians = [lowerMedian, upperMedian]
+
+		// Find the highest frequency value
+		const maxFrequency = Math.max(
+			...this
+			.values()
+			.map(({ numerator }) => numerator)
+		)
+		// Find results of this high frequency
+		this.modes = this
+		.entries()
+		.filter(([result, { numerator }]) => (
+			numerator === maxFrequency
+		))
+		.map(([result]) => result)
 	}
 
 	entries () {

@@ -15,7 +15,7 @@ console.log(doubleD4.diceRolls)
 const doubleD4Report = new Report(doubleD4.diceRolls)
 console.dir(doubleD4Report)
 
-const largeDicePool = new FungibleDice('4d10')
+const largeDicePool = new FungibleDice('3d10')
 console.log(largeDicePool.toString())
 console.log(largeDicePool.toJSON())
 console.log(largeDicePool.diceRolls)
