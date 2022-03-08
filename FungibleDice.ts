@@ -3,9 +3,17 @@ import cartesianProduct from "fast-cartesian"
 export default class FungibleDice {
 	readonly numDice: number
 	readonly numSides: number
+	#diceRolls: Array<Array<number>> | undefined
 
 	constructor (diceString: string) {
 		[this.numDice, this.numSides] = FungibleDice.parseString(diceString)
+	}
+
+	get diceRolls (): Array<Array<number>> {
+		if (this.#diceRolls === undefined) {
+			this.#diceRolls = FungibleDice.generateDiceRolls(this.numDice, this.numSides)
+		}
+		return this.#diceRolls
 	}
 
 	toString () {
@@ -15,7 +23,7 @@ export default class FungibleDice {
 	toJSON () {
 		return {
 			numDice: this.numDice,
-			numSides: this.numSides
+			numSides: this.numSides,
 		}
 	}
 
@@ -23,7 +31,7 @@ export default class FungibleDice {
 		Takes in a standard dice string (1d6, 3d20, d100, etc).
 		Returns the number of dice and the number of sides per dice.
 	*/
-	static parseString (diceString: string): [number, number] {
+	static parseString (diceString: string): [numDice: number, numSides: number] {
 		// Determine if dice string is valid
 		const diceRegExp = /^\d*d\d+$/gi
 		const isValidDiceString = diceRegExp.test(diceString)
@@ -45,10 +53,25 @@ export default class FungibleDice {
 		return [numDice, numSides]
 	}
 
-	generateDiceRolls (): Array<Array<number>> {
-		const singleDieRolls = Array.from(new Array(this.numSides), (_, key) => key + 1)
-		const allSingleDieRolls = new Array(this.numDice).fill(singleDieRolls)
-		const diceRolls = cartesianProduct<Array<Array<number>>>(allSingleDieRolls)
+	/*
+		Given a number of fungible dice and their size,
+			this gives all possible rolls for those dice.
+	*/
+	static generateDiceRolls (numDice: number, numSides: number): Array<Array<number>> {
+		// Spread the possible rolls of a single fungible die into an array.
+		// Ex. d6 = [1,2,3,4,5,6]
+		const singleDieRolls = new Array<number | void>(numSides)
+		.fill(undefined)
+		.map((_, index) => index + 1)
+
+		// Repeat those rolls N times within another array,
+		// 	where N is the number of dice.
+		const allSingleDieRolls = new Array<Array<number>>(numDice)
+		.fill(singleDieRolls)
+
+		// Taking the cartesian product here produces all possible rolls for these dice.
+		// This accounts for the order in which the dice were rolled as well.
+		const diceRolls = cartesianProduct(allSingleDieRolls)
 		return diceRolls
 	}
 }
