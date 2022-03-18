@@ -1,5 +1,5 @@
-import FungibleDice from "./FungibleDice.js"
-import Report from "./Report.js"
+import FungibleDice from "./classes/FungibleDice.js"
+import Report from "./classes/Report.js"
 
 const d4 = new FungibleDice('d4')
 console.log(d4.toString())

@@ -23,10 +23,10 @@
 		"url": "https://noltron000.com/"
 	},
 	"contributors": [],
-	"main": "main.js",
+	"main": "./source/main.js",
 	"type": "module",
 	"scripts": {
-		"test": "node --loader ts-node/esm ./main.ts"
+		"test": "node --loader ts-node/esm ./source/main.ts"
 	},
 	"dependencies": {
 		"fast-cartesian": "^6.1.0",
