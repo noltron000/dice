@@ -23,7 +23,7 @@
 		"url": "https://noltron000.com/"
 	},
 	"contributors": [],
-	"main": "./source/tests/main.test.js",
+	"main": "./source/main.js",
 	"type": "module",
 	"scripts": {
 		"test": "node --loader ts-node/esm ./source/tests/main.test.ts"
